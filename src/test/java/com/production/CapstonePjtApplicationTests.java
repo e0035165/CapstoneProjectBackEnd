@@ -8,6 +8,7 @@ class CapstonePjtApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }

@@ -28,7 +28,7 @@ import com.nimbusds.jose.jwk.gen.*;
 import com.nimbusds.jwt.*;
 
 @Component
-@Scope("singleton")
+@Scope("prototype")
 public class EncryptionDataClass {
 	private RSAPublicKey pubkey;
 	private RSAPrivateKey pvtkey;

@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-@ComponentScan(basePackages= {"com.organisation.entity","com.organisation.customers","com.operational","com.organisation.controllers","com.organisation.services"})
+@ComponentScan(basePackages= {"com.organisation.entity","com.organisation.customers","com.operational","com.organisation.controllers","com.organisation.services","com.filter"})
 @EntityScan(basePackages={"com.organisation.entity"})
 @EnableJpaRepositories(basePackages={"com.organisation.repositories"})
 public class CapstonePjtApplication {

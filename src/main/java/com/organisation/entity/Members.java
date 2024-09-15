@@ -113,9 +113,10 @@ public class Members {
 
 	@Override
 	public String toString() {
-		return "Members [nric=" + nric + ", dateofjoin=" + dateofjoin + ", bks=" + bks + ", current_bks=" + current_bks
-				+ ", email=" + email + "]";
+		return "Members [nric=" + nric + ", bks=" + bks + ", email=" + email + ", fines=" + fines + "]";
 	}
+
+
 
 
 	

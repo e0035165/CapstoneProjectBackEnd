@@ -2,10 +2,16 @@ package com.organisation.controllers;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,9 +31,11 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.operational.BookSelectionCoordinator;
 import com.operational.EncryptionDataClass;
+import com.organisation.entity.AuthRequest;
 import com.organisation.entity.Books;
 import com.organisation.entity.Members;
 import com.organisation.services.BookService;
+import com.organisation.services.JwtService;
 import com.organisation.services.MembersService;
 
 @RestController
@@ -59,7 +67,7 @@ public class ClientController {
 		mem.password=newans;
 		System.out.println("Encrypted password has been set as : "+mem.password);
 		srvc.addmember(mem);
-		return new ResponseEntity<>("Member created",HttpStatus.CREATED);
+		return new ResponseEntity<>("Member created",HttpStatus.OK);
 	}
 	
 	@PostMapping(path="/login")
@@ -122,6 +130,7 @@ public class ClientController {
 			TypeReference<List<List<Books>>> mapType = new TypeReference<List<List<Books>>>() {};
 			List<List<Books>>newans = objmap.readValue(arraytojson, mapType);
 			ObjectMapper objectMapper = new ObjectMapper();
+			List<Object>obb = newans.stream().filter(x->x.size()>=5).collect(Collectors.toList());
 			return new ResponseEntity<>(jsonArray.toList(),HttpStatus.OK);
 		} catch (JsonProcessingException e) {
 			System.err.println(e.getMessage());
@@ -232,7 +241,7 @@ public class ClientController {
 			int NRIC = Integer.parseInt(nric);
 			srvc.deletemembers(NRIC);
 			System.out.println(NRIC);
-			return new ResponseEntity<>("Member deleted",HttpStatus.OK);
+			return new ResponseEntity<>("Member deleted",HttpStatus.NO_CONTENT);
 		}catch(Exception E)
 		{
 			return new ResponseEntity<>("Member still owes books", HttpStatus.BAD_REQUEST);
@@ -257,14 +266,6 @@ public class ClientController {
 	}
 	
 	
-	
-	
-	
-//	@PutMapping("/editMember/{id}")
-//	public ResponseEntity<String> editMember(@PathVariable int id)
-//	{
-//		
-//	}
 	
 	
 	

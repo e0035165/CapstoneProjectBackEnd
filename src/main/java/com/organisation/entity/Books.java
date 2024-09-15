@@ -12,6 +12,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.ToString;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 
 @Entity
 @Table(name="Books")
@@ -29,10 +31,11 @@ public class Books {
 	public String language;
 	@Column(name="mass")
 	public int mass;
-	@Column(name="status")
+//	@Column(name="status")
 	public boolean status;
 	@Column(name="Taken Date")
 	public LocalDate datetaken;
+	
 	@ManyToOne
 	public Members member;
 	
@@ -144,8 +147,11 @@ public class Books {
 
 	@Override
 	public String toString() {
-		return "Books [isbn=" + isbn + ", bkname=" + bkname + ", author=" + author + ", returndate=" + returndate.toString() + "]";
+		return "Books [isbn=" + isbn + ", bkname=" + bkname + ", genre=" + genre + ", language=" + language
+				+ ", returndate=" + returndate + "]";
 	}
+
+
 
 	
 
